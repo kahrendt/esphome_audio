@@ -28,7 +28,7 @@ bool ADFElementI2SIn::init_adf_elements_() {
   }
 
   i2s_driver_config_t i2s_config = {
-      .mode = (i2s_mode_t) (I2S_MODE_MASTER | I2S_MODE_RX),
+      .mode = (i2s_mode_t) (I2S_MODE_SLAVE | I2S_MODE_RX | I2S_MODE_TX),
       .sample_rate = this->sample_rate_,
       .bits_per_sample = this->bits_per_sample_,
       .channel_format = this->channel_,

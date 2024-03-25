@@ -48,7 +48,7 @@ class I2SAudioComponent : public Component {
   Mutex lock_;
 
   int current_mode_{0};
-  bool exclusive_mode_{true};
+  bool exclusive_mode_{false};
   bool set_mode_(int mode );
   bool release_mode_(int mode);
 

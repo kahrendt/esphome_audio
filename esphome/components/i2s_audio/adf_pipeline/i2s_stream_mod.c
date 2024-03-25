@@ -238,7 +238,7 @@ static int _i2s_read(audio_element_handle_t self, char *buffer, int len, TickTyp
 static int _i2s_write(audio_element_handle_t self, char *buffer, int len, TickType_t ticks_to_wait, void *context)
 {
     i2s_stream_t *i2s = (i2s_stream_t *)audio_element_getdata(self);
-    len = len >> 2 << 2;
+    // len = len >> 2 << 2;
     size_t bytes_written = 0;
     audio_element_info_t info;
     audio_element_getinfo(self, &info);
@@ -255,6 +255,7 @@ static int _i2s_write(audio_element_handle_t self, char *buffer, int len, TickTy
 #endif
     }
 
+    if (len) {
     if (i2s->config.need_expand && (i2s->config.i2s_config.bits_per_sample != i2s->config.expand_src_bits)) {
         i2s_write_expand(i2s->config.i2s_port,
                          buffer,
@@ -265,7 +266,11 @@ static int _i2s_write(audio_element_handle_t self, char *buffer, int len, TickTy
                          ticks_to_wait);
     } else {
         i2s_write(i2s->config.i2s_port, buffer, len, &bytes_written, ticks_to_wait);
+        // i2s_write_expand(i2s->config.i2s_port, buffer, len, 16, 32, &bytes_written, portMAX_DELAY);
+        // i2s_write_expand(i2s->config.i2s_port, buffer, len, 16, 32, &bytes_written, ticks_to_wait);
     }
+    }
+
 
     return bytes_written;
 }
